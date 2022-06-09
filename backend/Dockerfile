@@ -10,8 +10,8 @@ EXPOSE 8080
 # указываем, где в нашем приложении лежит джарник
 ARG JAR_FILE=target/demo-0.0.1-SNAPSHOT.jar
 
-# добавляем джарник в образ под именем rebounder-chain-backend.jar
-ADD ${JAR_FILE} rebounder-chain-backend.jar
+# добавляем джарник в образ под именем backend.jar
+ADD ${JAR_FILE} backend.jar
 
 # команда запуска джарника
-ENTRYPOINT ["java","-jar","/rebounder-chain-backend.jar"]
+ENTRYPOINT ["java","-jar","/backend.jar"]
