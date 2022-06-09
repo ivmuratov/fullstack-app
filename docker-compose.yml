@@ -2,11 +2,13 @@ version: "3"
 services:
   server:
     build: backend/
+    image: solar1s/backend:0.0.1
     ports:
       - 8080:8080
 
   client:
     build: frontend/
+    image: solar1s/frontend:0.0.1
     ports:
       - 3000:3000
 
