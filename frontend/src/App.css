@@ -1,0 +1,22 @@
+.table-container {
+    width: 65%;
+    margin: 125px auto;
+}
+
+.edit-button-modal-container {
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.home-container {
+    width: 20%;
+    margin: 100px auto;
+}
+
+.account-container {
+    margin-top: 100px;
+}
+
+.create-button-modal-container {
+    display: inline-block;
+}

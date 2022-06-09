@@ -1,0 +1,24 @@
+#Server, spring, H2 config
+server:
+  port: 8080
+spring:
+  h2.console.enabled: true
+  data.rest:
+    return-body-on-create: true
+  datasource:
+    url: jdbc:h2:mem:newproject
+    # tcp: jdbc:h2:tcp://localhost:9092/mem:newproject
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    # https://stackoverflow.com/questions/67695069/spring-boot-datasource-initialization-error-with-data-sql-script-after-2-5-0-upg:
+    defer-datasource-initialization: true
+    show-sql: true
+    open-in-view: false
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+    properties.hibernate:
+      format_sql: true
+      dialect: org.hibernate.dialect.H2Dialect
