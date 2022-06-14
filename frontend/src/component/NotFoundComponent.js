@@ -1,3 +1,4 @@
+import React from "react";
 import notFound from '../assets/images/notFound.png';
 
 const NotFoundComponent = () => {

@@ -1,3 +1,4 @@
+import React from "react";
 import { IconButton, makeStyles } from "@material-ui/core";
 import { useNavigate } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -10,7 +11,7 @@ const useStyles = makeStyles({
     }
 });
 
-const LogoutComponent = () => {
+const LogoutButton = () => {
 
     const classes = useStyles();
     
@@ -33,4 +34,4 @@ const LogoutComponent = () => {
     );
 }
 
-export default LogoutComponent;
+export default LogoutButton;

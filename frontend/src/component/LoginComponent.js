@@ -1,9 +1,10 @@
+import React from "react";
 import '../App.css';
 import { FormGroup, TextField, Button, makeStyles } from '@material-ui/core';
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { login } from "../service/connectToSpringBoot";
-import AlertComponent from './AlertComponent';
+import AlertInfo from './AlertInfo';
 import { useState } from 'react';
 import { useAuthContext } from '../context/AuthContextProvider';
 import NotFoundComponent from './NotFoundComponent';
@@ -87,7 +88,7 @@ const LoginComponent = () => {
     return auth ? <NotFoundComponent />
         : (
             <FormGroup className={classes.container}>
-                <AlertComponent open={openAlert}
+                <AlertInfo open={openAlert}
                     close={handleCloseAlert}
                     severity={severity}
                     title={title}

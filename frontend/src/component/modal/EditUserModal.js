@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState } from "react";
-import { FormGroup, Button, TextField, makeStyles, IconButton, MenuItem, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { FormGroup, Button, TextField, makeStyles, IconButton, MenuItem, DialogActions } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import '../../App.css';
 import { updateUser } from "../../service/connectToSpringBoot";
 import { getAuthUser } from "../../util/authUtil";
 import { useForm, Controller } from "react-hook-form";
-import AlertComponent from '../AlertComponent';
+import AlertInfo from '../AlertInfo';
+import Modal from './Modal';
 
 const useStyles = makeStyles({
     container: {
@@ -104,115 +105,114 @@ const EditUserModal = ({ selectUser, updateUserTable }) => {
                     handleOpenModal();
                     setFieldsUser(selectUser);
                 }}><EditIcon /></IconButton>
-            <AlertComponent open={openAlert}
+            <AlertInfo open={openAlert}
                 close={handleCloseAlert}
                 severity={severity}
                 title={title}
                 content={content} />
-            <Dialog open={openModal} onClose={handleCloseModal} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Edit user</DialogTitle>
-                <DialogContent>
-                    <FormGroup className={classes.container}>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <Controller
-                                name="name"
-                                control={control}
-                                defaultValue={name}
-                                rules={{
-                                    required: { value: true, message: 'You must enter a Name' },
-                                    minLength: { value: 5, message: 'Name must be at least 5 chars' },
-                                    maxLength: { value: 20, message: 'Name must be no more than 20 chars' }
-                                }}
-                                render={({ field }) => {
-                                    return (errors.name || openAlert ?
-                                        <TextField label="Name"
-                                            type="text"
-                                            fullWidth
-                                            error
-                                            helperText={errors.name?.message}
-                                            {...field} />
+            <Modal openModal={openModal}
+                closeModal={handleCloseModal}
+                title='Edit User'>
+                <FormGroup className={classes.container}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Controller
+                            name="name"
+                            control={control}
+                            defaultValue={name}
+                            rules={{
+                                required: { value: true, message: 'You must enter a Name' },
+                                minLength: { value: 5, message: 'Name must be at least 5 chars' },
+                                maxLength: { value: 20, message: 'Name must be no more than 20 chars' }
+                            }}
+                            render={({ field }) => {
+                                return (errors.name || openAlert ?
+                                    <TextField label="Name"
+                                        type="text"
+                                        fullWidth
+                                        error
+                                        helperText={errors.name?.message}
+                                        {...field} />
 
-                                        : <TextField label="Name"
-                                            type="text"
-                                            fullWidth
-                                            {...field} />
-                                    );
-                                }} />
+                                    : <TextField label="Name"
+                                        type="text"
+                                        fullWidth
+                                        {...field} />
+                                );
+                            }} />
 
-                            <Controller
-                                name="email"
-                                control={control}
-                                defaultValue={email}
-                                rules={{
-                                    required: { value: true, message: 'You must enter a Email' },
-                                    minLength: { value: 5, message: 'Email must be at least 5 chars' },
-                                    maxLength: { value: 50, message: 'Email must be no more than 50 chars' }
-                                }}
-                                render={({ field }) => {
-                                    return (errors.email || openAlert ?
-                                        <TextField label="Email"
-                                            type="email"
-                                            fullWidth
-                                            error
-                                            helperText={errors.email?.message}
-                                            {...field} />
+                        <Controller
+                            name="email"
+                            control={control}
+                            defaultValue={email}
+                            rules={{
+                                required: { value: true, message: 'You must enter a Email' },
+                                minLength: { value: 5, message: 'Email must be at least 5 chars' },
+                                maxLength: { value: 50, message: 'Email must be no more than 50 chars' }
+                            }}
+                            render={({ field }) => {
+                                return (errors.email || openAlert ?
+                                    <TextField label="Email"
+                                        type="email"
+                                        fullWidth
+                                        error
+                                        helperText={errors.email?.message}
+                                        {...field} />
 
-                                        : <TextField label="Email"
-                                            type="email"
-                                            fullWidth
-                                            {...field} />
-                                    );
-                                }} />                            
+                                    : <TextField label="Email"
+                                        type="email"
+                                        fullWidth
+                                        {...field} />
+                                );
+                            }} />
 
-                            <Controller
-                                name="roles"
-                                control={control}
-                                defaultValue={roles}
-                                rules={{
-                                    required: { value: true, message: 'You must enter a Roles' },
-                                }}
-                                render={({ field }) => {
-                                    return (errors.roles || openAlert ?
-                                        <TextField className={classes.selectFormControl}
-                                            label="Roles"
-                                            id="standard-select-currency"
-                                            select
-                                            error
-                                            helperText={errors.roles?.message}
-                                            {...field}>
-                                            <MenuItem value={'USER'}>User role</MenuItem>
-                                            <MenuItem value={'ADMIN,USER'}>Admin role</MenuItem>
-                                        </TextField>
+                        <Controller
+                            name="roles"
+                            control={control}
+                            defaultValue={roles}
+                            rules={{
+                                required: { value: true, message: 'You must enter a Roles' },
+                            }}
+                            render={({ field }) => {
+                                return (errors.roles || openAlert ?
+                                    <TextField className={classes.selectFormControl}
+                                        label="Roles"
+                                        id="standard-select-currency"
+                                        select
+                                        error
+                                        helperText={errors.roles?.message}
+                                        {...field}>
+                                        <MenuItem value={'USER'}>User role</MenuItem>
+                                        <MenuItem value={'ADMIN,USER'}>Admin role</MenuItem>
+                                    </TextField>
 
-                                        : <TextField className={classes.selectFormControl}
-                                            label="Roles"
-                                            id="standard-select-currency"
-                                            select
-                                            {...field}>
-                                            <MenuItem value={'USER'}>User role</MenuItem>
-                                            <MenuItem value={'ADMIN,USER'}>Admin role</MenuItem>
-                                        </TextField>
-                                    );
-                                }} />
+                                    : <TextField className={classes.selectFormControl}
+                                        label="Roles"
+                                        id="standard-select-currency"
+                                        select
+                                        {...field}>
+                                        <MenuItem value={'USER'}>User role</MenuItem>
+                                        <MenuItem value={'ADMIN,USER'}>Admin role</MenuItem>
+                                    </TextField>
+                                );
+                            }} />
 
-                            <DialogActions>
-                                <Button className={classes.button}
-                                    color="primary"
-                                    type="submit"
-                                    variant="contained">
-                                    Edit
-                                </Button>
-                                <Button className={classes.button}
-                                    color="secondary"
-                                    variant="contained"
-                                    onClick={handleCloseModal}>
-                                    Cancel
-                                </Button>
-                            </DialogActions>
-                        </form>
-                    </FormGroup>
-                </DialogContent>
-            </Dialog>
+                        <DialogActions>
+                            <Button className={classes.button}
+                                color="primary"
+                                type="submit"
+                                variant="contained">
+                                Edit
+                            </Button>
+                            <Button className={classes.button}
+                                color="secondary"
+                                variant="contained"
+                                onClick={handleCloseModal}>
+                                Cancel
+                            </Button>
+                        </DialogActions>
+                    </form>
+                </FormGroup>
+            </Modal>
         </div>
     );
 }

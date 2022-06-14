@@ -1,3 +1,4 @@
+import React from "react";
 import { IconButton, InputAdornment, makeStyles, TextField } from '@material-ui/core';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import CloseIcon from '@material-ui/icons/Close';
@@ -13,7 +14,7 @@ const useStyles = makeStyles({
     }
 });
 
-const FilterComponent = ({ filterField, items, setFilteredItems, filterInput, setFilterInput }) => {
+const FilterInput = ({ filterField, items, setFilteredItems, filterInput, setFilterInput }) => {
 
     const classes = useStyles();
 
@@ -54,4 +55,4 @@ const FilterComponent = ({ filterField, items, setFilteredItems, filterInput, se
     );
 }
 
-export default FilterComponent;
+export default FilterInput;

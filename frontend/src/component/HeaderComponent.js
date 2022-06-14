@@ -1,9 +1,10 @@
+import React from "react";
 import { AppBar, makeStyles, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContextProvider";
 import { isAdmin } from "../util/authUtil";
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import LogoutComponent from './LogoutComponent';
+import LogoutButton from './LogoutButton';
 
 const useStyles = makeStyles({
     header: {
@@ -39,7 +40,7 @@ const HeaderComponent = () => {
                 {auth && <IconButton className={classes.accountButton} onClick={() => navigate('/account')}><AccountBoxIcon /></IconButton>}
                 {!auth && <Button color="inherit" onClick={() => navigate('/login')}>Login</Button>}
                 {!auth && <Button color="inherit" onClick={() => navigate('/registration')}>Registration</Button>}
-                {auth && <LogoutComponent />}
+                {auth && <LogoutButton />}
             </Toolbar>
         </AppBar>
     );

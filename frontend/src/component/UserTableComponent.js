@@ -1,14 +1,15 @@
+import React from "react";
 import { useCallback, useEffect, useState } from "react";
 import { deleteUser, getUsers } from "../service/connectToSpringBoot";
 import { getAuthUser } from "../util/authUtil";
-import { IconButton, makeStyles, Table, TableBody, TableCell, TableHead, TableRow, TableFooter, TablePagination, TableContainer, Paper } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles, Table, TableBody, TableCell, TableHead, TableRow, TableFooter, TablePagination, TableContainer, Paper } from '@material-ui/core';
 import CreateUserModal from './modal/CreateUserModal';
 import '../App.css';
-import AlertComponent from "./AlertComponent";
+import AlertInfo from "./AlertInfo";
 import TablePaginationActions from "./TablePaginationActions";
 import EditUserModal from "./modal/EditUserModal";
-import FilterComponent from "./FilterComponent";
+import FilterInput from "./FilterInput";
+import DeleteRowButton from "./DeleteRowButton";
 
 const useStyles = makeStyles({
     tableThead: {
@@ -34,15 +35,21 @@ const UserTableComponent = () => {
 
     const [filteredUsers, setFilteredUsers] = useState([]);
 
-    const [openAlert, setOpenAlert] = useState(false);
-
-    const [alertContent, setAlertContent] = useState('');
-
     const [page, setPage] = useState(0);
 
     const [usersPerPage, setUsersPerPage] = useState(8);
 
     const [filterInput, setFilterInput] = useState('');
+
+    const [openAlert, setOpenAlert] = useState(false);
+
+    const [alert, setAlert] = useState({
+        severity: 'success',
+        title: '',
+        content: ''
+    });
+
+    const { severity, title, content } = alert;
 
     const { username, password } = getAuthUser();
 
@@ -50,7 +57,7 @@ const UserTableComponent = () => {
         getUsers(username, password)
             .then(resp => {
                 console.log('getAll:');
-                console.log(resp);                
+                console.log(resp);
                 setUsers(resp.data);
                 setFilterInput('');
             })
@@ -63,25 +70,6 @@ const UserTableComponent = () => {
     useEffect(() => {
         getAll();
     }, [getAll, username, password]);
-
-    const deleteRow = id => {
-        if (!window.confirm(`Are you sure you want to delete the user by id - ${id}?`)) {
-            return;
-        }
-
-        deleteUser(id, username, password)
-            .then(resp => {
-                console.log('deleteRow:');
-                console.log(resp);
-                handleOpenAlert();
-                setAlertContent(`id - ${id}`);
-                getAll();
-            })
-            .catch(err => {
-                console.log('deleteRow failed:');
-                console.log(err.response);
-            });
-    }
 
     const handleOpenAlert = () => {
         setOpenAlert(true);
@@ -102,17 +90,17 @@ const UserTableComponent = () => {
 
     return (
         <div className="table-container">
-            <AlertComponent open={openAlert}
-                close={handleCloseAlert}
-                severity={'success'}
-                title={'USER DELETED SUCCESSFULLY!'}
-                content={alertContent} />
             <CreateUserModal updateUserTable={getAll} />
-            <FilterComponent filterField='email'
+            <FilterInput filterField='email'
                 items={users}
                 setFilteredItems={setFilteredUsers}
                 filterInput={filterInput}
                 setFilterInput={setFilterInput} />
+            <AlertInfo open={openAlert}
+                close={handleCloseAlert}
+                severity={severity}
+                title={title}
+                content={content} />
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -135,10 +123,11 @@ const UserTableComponent = () => {
                                         <TableCell>{user.roles}</TableCell>
                                         <TableCell>
                                             <EditUserModal selectUser={user} updateUserTable={getAll} />
-                                            <IconButton aria-label="delete"
-                                                color="secondary"
-                                                size="small"
-                                                onClick={() => deleteRow(user.id)}><DeleteIcon /></IconButton>
+                                            <DeleteRowButton id={user.id} nameValue={'user'}                                                
+                                                handleOpenAlert={handleOpenAlert}
+                                                setAlert={setAlert}
+                                                deleteFunc={deleteUser}
+                                                updateTable={getAll} />
                                         </TableCell>
                                     </TableRow>
                                 ))
@@ -153,10 +142,11 @@ const UserTableComponent = () => {
                                         <TableCell>{user.roles}</TableCell>
                                         <TableCell>
                                             <EditUserModal selectUser={user} updateUserTable={getAll} />
-                                            <IconButton aria-label="delete"
-                                                color="secondary"
-                                                size="small"
-                                                onClick={() => deleteRow(user.id)}><DeleteIcon /></IconButton>
+                                            <DeleteRowButton id={user.id} nameValue={'user'}                                                
+                                                handleOpenAlert={handleOpenAlert}
+                                                setAlert={setAlert}
+                                                deleteFunc={deleteUser}
+                                                updateTable={getAll} />
                                         </TableCell>
                                     </TableRow>
                                 ))

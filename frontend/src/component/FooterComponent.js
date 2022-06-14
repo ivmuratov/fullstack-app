@@ -1,11 +1,11 @@
 import React from "react";
+import '../App.css';
 
 const FooterComponent = () => {
 
     return (
-        <footer className='footer'>
-            <hr />
-            <div className='text-center'>React.js version = {React.version}</div>
+        <footer className='footer-container'>                  
+            React.js version = {React.version}          
         </footer>
     );
 }

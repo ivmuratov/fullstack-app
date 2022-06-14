@@ -3,6 +3,18 @@
     margin: 125px auto;
 }
 
+.footer-container {
+    bottom: 0;
+    position: fixed;
+    display: inline-block;
+    width: 100%;    
+    text-align: center;  
+    height: 35px;  
+    background-color: #053acfde;
+    color: #FFFFFF;
+}
+
+
 .edit-button-modal-container {
     display: inline-block;
     margin-left: 8px;

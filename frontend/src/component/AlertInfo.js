@@ -1,3 +1,4 @@
+import React from "react";
 import { makeStyles, Snackbar } from "@material-ui/core";
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Markup } from 'interweave';
@@ -15,7 +16,7 @@ const position = {
     horizontal: 'right'
 };
 
-const AlertComponent = ({ open, close, severity, title, content, ...props }) => {
+const AlertInfo = ({ open, close, severity, title, content }) => {
 
     const classes = useStyles();
 
@@ -33,4 +34,4 @@ const AlertComponent = ({ open, close, severity, title, content, ...props }) => 
     );
 }
 
-export default AlertComponent;
+export default AlertInfo;
