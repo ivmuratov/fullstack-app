@@ -61,9 +61,9 @@ const UserTableComponent = () => {
                 setUsers(resp.data);
                 setFilterInput('');
             })
-            .catch(resp => {
-                console.log('getAll:');
-                console.log(resp);
+            .catch(err => {
+                console.log('failed -getAll:');
+                console.log(err.repsonse);
             });
     }, [username, password]);
 

@@ -46,7 +46,7 @@ const FilterInput = ({ filterField, items, setFilteredItems, filterInput, setFil
                 endAdornment: (
                     <InputAdornment position='end'>
                         <IconButton className={classes.iconButton}
-                        onClick={() => setFilterInput('')}>
+                            onClick={() => setFilterInput('')}>
                             <CloseIcon />
                         </IconButton>
                     </InputAdornment>
