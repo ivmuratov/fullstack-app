@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const USER_REST_API_URL = 'http://localhost:8080/api/user';
 
-export const getUsers = async (username, password) => {
-    return await axios({
+export const getUsers = async (username, password) => {     
+    const resp = await axios({
         method: 'get',
         url: USER_REST_API_URL,
         auth: {
@@ -11,10 +11,11 @@ export const getUsers = async (username, password) => {
             password
         }
     });
+    return resp;
 }
 
 export const createUser = async (user, username, password) => {
-    return await axios({
+    const resp = await axios({
         method: 'post',
         url: USER_REST_API_URL,
         data: user,
@@ -23,10 +24,11 @@ export const createUser = async (user, username, password) => {
             password
         }
     });
+    return resp;
 }
 
 export const deleteUser = async (id, username, password) => {
-    return await axios({
+    const resp = await axios({
         method: 'delete',
         url: `${USER_REST_API_URL}/${id}`,
         auth: {
@@ -34,10 +36,11 @@ export const deleteUser = async (id, username, password) => {
             password
         }
     });
+    return resp;
 }
 
 export const updateUser = async (id, user, username, password) => {    
-    return await axios({
+    const resp = await axios({
         method: 'put',
         url: `${USER_REST_API_URL}/${id}`,
         data: user,
@@ -46,6 +49,7 @@ export const updateUser = async (id, user, username, password) => {
             password
         }
     });
+    return resp;
 }
 
 // =============================================================
@@ -55,15 +59,17 @@ export const updateUser = async (id, user, username, password) => {
 const ACCOUNT_REST_API_URL = 'http://localhost:8080/api/account';
 
 export const login = async (credentials) => {
-    return await axios.post(`${ACCOUNT_REST_API_URL}/login`, credentials);
+    const resp = await axios.post(`${ACCOUNT_REST_API_URL}/login`, credentials);
+    return resp;
 }
 
 export const registration = async (credentials) => {
-    return await axios.post(`${ACCOUNT_REST_API_URL}/registration`, credentials);
+    const resp = await axios.post(`${ACCOUNT_REST_API_URL}/registration`, credentials);
+    return resp;
 }
 
 export const getUserInfo = async (username, password) => {    
-    return await axios({
+    const resp = await axios({
         method: 'get',
         url: ACCOUNT_REST_API_URL,
         auth: {
@@ -71,4 +77,5 @@ export const getUserInfo = async (username, password) => {
             password
         }
     });
+    return resp;
 }
