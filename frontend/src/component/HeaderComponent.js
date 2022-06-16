@@ -10,16 +10,22 @@ const useStyles = makeStyles({
     header: {
         background: '#053acfde'
     },
-    tabs: {
-        color: '#FFFFFF',
-        textDecoration: 'none',
-        marginLeft: 20,
-        fontSize: 20
-    },
-    accountButton: {
+    button: {
+        textTransform: 'none',
+        color: "inherit",
+        fontSize: "1.15rem"
+    },    
+    accountIconButton: {
         color: "inherit",
         position: "absolute",
-        left: "93%"
+        right: "50px"
+    },
+    loginButton: {
+        textTransform: 'none',
+        color: "inherit",
+        position: "absolute",
+        right: "20px",
+        fontSize: "1.15rem"
     }
 });
 
@@ -35,11 +41,10 @@ const HeaderComponent = () => {
         <AppBar className={classes.header}>
             <Toolbar>
                 <Typography varinat='h6'>Test React.js</Typography>
-                <Button color="inherit" onClick={() => navigate('/')}>Home</Button>
-                {isAdmin() && <Button color="inherit" onClick={() => navigate('/user')}>Users</Button>}
-                {auth && <IconButton className={classes.accountButton} onClick={() => navigate('/account')}><AccountBoxIcon /></IconButton>}
-                {!auth && <Button color="inherit" onClick={() => navigate('/login')}>Login</Button>}
-                {!auth && <Button color="inherit" onClick={() => navigate('/registration')}>Registration</Button>}
+                <Button className={classes.button} onClick={() => navigate('/')}>Home</Button>
+                {isAdmin() && <Button className={classes.button} onClick={() => navigate('/user')}>Users</Button>}
+                {auth && <IconButton className={classes.accountIconButton} onClick={() => navigate('/account')}><AccountBoxIcon /></IconButton>}
+                {!auth && <Button className={classes.loginButton} onClick={() => navigate('/login')}>Sign In/Up</Button>}                
                 {auth && <LogoutButton />}
             </Toolbar>
         </AppBar>

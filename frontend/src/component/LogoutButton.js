@@ -4,18 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useAuthContext } from "../context/AuthContextProvider";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     logoutButton: {
         position: "absolute",
-        left: "95%"
+        right: "20px",
+        color: theme.palette.secondary.main
     }
-});
+}));
 
 const LogoutButton = () => {
 
     const classes = useStyles();
-    
-    const navigate = useNavigate();    
+
+    const navigate = useNavigate();
 
     const { setAuth } = useAuthContext();
 
@@ -27,7 +28,7 @@ const LogoutButton = () => {
     }
 
     return (
-        <IconButton className={classes.logoutButton} color="secondary"
+        <IconButton className={classes.logoutButton}
             onClick={onLogout}>
             <ExitToAppIcon />
         </IconButton>

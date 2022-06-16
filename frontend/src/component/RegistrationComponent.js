@@ -1,6 +1,7 @@
 import React from "react";
 import '../App.css';
-import { FormGroup, TextField, Button, makeStyles } from '@material-ui/core';
+import { FormGroup, TextField, Button, makeStyles, createTheme, ThemeProvider } from '@material-ui/core';
+import { green } from "@material-ui/core/colors";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { registration } from '../service/connectToSpringBoot';
@@ -15,9 +16,15 @@ const useStyles = makeStyles({
         margin: '10% auto 25% auto'
     },
     button: {
-        width: '80px',
-        marginTop: '10px',
-        marginRight: '7px'
+        marginTop: '35px',
+        textTransform: 'none',
+        fontSize: "1rem",
+    },
+});
+
+const theme = createTheme({
+    palette: {
+        primary: green,
     },
 });
 
@@ -45,7 +52,7 @@ const RegistrationComponent = () => {
 
     const { auth, setAuth } = useAuthContext();
 
-    const { control, formState: { errors }, handleSubmit, reset } = useForm({ defaultValues: initCredentials });
+    const { control, formState: { errors }, handleSubmit } = useForm({ defaultValues: initCredentials });
 
     const onSubmit = req => {
         registration(req)
@@ -69,14 +76,6 @@ const RegistrationComponent = () => {
                     content: `${errData.message}`
                 });
             });
-    }
-
-    const resetForm = () => {
-        reset(initCredentials);
-    }
-
-    const handleCancel = () => {
-        navigate("/");
     }
 
     const handleOpenAlert = () => {
@@ -169,25 +168,15 @@ const RegistrationComponent = () => {
                                     {...field} />
                             );
                         }} />
-
-                    <Button className={classes.button}
-                        color="primary"
-                        type="submit"
-                        variant="contained">
-                        Confirm
-                    </Button>
-                    <Button className={classes.button}
-                        color="default"
-                        variant="contained"
-                        onClick={resetForm}>
-                        Reset
-                    </Button>
-                    <Button className={classes.button}
-                        color="secondary"
-                        variant="contained"
-                        onClick={handleCancel}>
-                        Cancel
-                    </Button>
+                    <ThemeProvider theme={theme}>
+                        <Button className={classes.button}
+                            color="primary"
+                            type="submit"
+                            variant="contained"
+                            fullWidth >
+                            Sign Up
+                        </Button>
+                    </ThemeProvider>
                 </form>
             </FormGroup>
         );

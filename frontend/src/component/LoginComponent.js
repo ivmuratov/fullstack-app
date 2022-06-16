@@ -1,6 +1,7 @@
 import React from "react";
 import '../App.css';
-import { FormGroup, TextField, Button, makeStyles } from '@material-ui/core';
+import { FormGroup, TextField, Button, makeStyles, createTheme, ThemeProvider } from '@material-ui/core';
+import { green } from "@material-ui/core/colors";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { login } from "../service/connectToSpringBoot";
@@ -8,16 +9,32 @@ import AlertInfo from './AlertInfo';
 import { useState } from 'react';
 import { useAuthContext } from '../context/AuthContextProvider';
 import NotFoundComponent from './NotFoundComponent';
+import { NavLink } from "react-router-dom";
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles(theme => ({
     container: {
         width: '25%',
         margin: '10% auto 27% auto'
     },
+    link: {
+        marginTop: '50px',
+    },
     button: {
-        width: '80px',
-        marginTop: '10px',
-        marginRight: '7px'
+        marginTop: '15px',
+        textTransform: 'none',
+        fontSize: "1rem",
+    },
+}));
+
+const styleNavLink = {
+    marginTop: '35px',
+    display: 'inline-block'
+}
+
+const theme = createTheme({
+    palette: {
+        primary: green,
     },
 });
 
@@ -42,7 +59,7 @@ const LoginComponent = () => {
 
     const { severity, title, content } = alert;
 
-    const { control, handleSubmit, reset } = useForm({ defaultValues: initCredentials });
+    const { control, handleSubmit } = useForm({ defaultValues: initCredentials });
 
     const { auth, setAuth } = useAuthContext();
 
@@ -69,14 +86,6 @@ const LoginComponent = () => {
             });
     }
 
-    const resetForm = () => {
-        reset(initCredentials);
-    }
-
-    const handleCancel = () => {
-        navigate("/");
-    }
-
     const handleOpenAlert = () => {
         setOpenAlert(true);
     }
@@ -94,7 +103,7 @@ const LoginComponent = () => {
                     title={title}
                     content={content} />
                 <h4>Login</h4>
-                <br></br>
+                <br />
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Controller
                         name="email"
@@ -129,24 +138,18 @@ const LoginComponent = () => {
                                     {...field} />);
                         }} />
 
-                    <Button className={classes.button}
-                        color="primary"
-                        type="submit"
-                        variant="contained">
-                        Confirm
-                    </Button>
-                    <Button className={classes.button}
-                        color="default"
-                        variant="contained"
-                        onClick={resetForm}>
-                        Reset
-                    </Button>
-                    <Button className={classes.button}
-                        color="secondary"
-                        variant="contained"
-                        onClick={handleCancel}>
-                        Cancel
-                    </Button>
+                    <NavLink to="/registration" style={styleNavLink}>
+                        If you don't have an account, please register.
+                    </NavLink>
+                    <ThemeProvider theme={theme}>
+                        <Button className={classes.button}
+                            color="primary"
+                            type="submit"
+                            variant="contained"
+                            fullWidth >
+                            Sign In
+                        </Button>
+                    </ThemeProvider>
                 </form>
             </FormGroup>
         );

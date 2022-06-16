@@ -25,14 +25,14 @@ const HomeComponent = () => {
     const getLocalStorageItem = () => {
         console.log(localStorage);
         console.log(isAdmin(getAuthRoles()));
-        console.log('auth - ' + auth);
+        console.log('auth - ' + auth);        
     }
 
     return (
         <div className='home-container'>
             <h1>Home Component</h1>
             <h5>{`Время - ${dateTime.toLocaleTimeString()}`}</h5>
-            <br></br>
+            <br></br>           
             <button onClick={getLocalStorageItem}>local storage info</button>
         </div>
     );
